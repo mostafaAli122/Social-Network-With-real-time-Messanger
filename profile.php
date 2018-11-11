@@ -86,6 +86,7 @@ if (isset($_GET['username'])) {
         }
         ?>
 </form>
+
 <form action="profile.php?username=<?php echo $username; ?>" method="post">
         <textarea name="postbody" rows="8" cols="80"></textarea>
         <input type="submit" name="post" value="Post">
