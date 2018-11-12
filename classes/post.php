@@ -5,7 +5,19 @@ class Post {
                         die('Incorrect length!');
                 }
                 if ($loggedInUserId == $profileUserId) {
-                        DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :userid, 0)', array(':postbody'=>$postbody, ':userid'=>$profileUserId));
+                        DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :userid, 0, \'\')', array(':postbody'=>$postbody, ':userid'=>$profileUserId));
+                } else {
+                        die('Incorrect user!');
+                }
+        }
+        public static function createImgPost($postbody, $loggedInUserId, $profileUserId) {
+                if (strlen($postbody) > 160) {
+                        die('Incorrect length!');
+                }
+                if ($loggedInUserId == $profileUserId) {
+                        DB::query('INSERT INTO posts VALUES (\'\', :postbody, NOW(), :userid, 0, \'\')', array(':postbody'=>$postbody, ':userid'=>$profileUserId));
+                        $postid = DB::query('SELECT id FROM posts WHERE user_id=:userid ORDER BY ID DESC LIMIT 1;', array(':userid'=>$loggedInUserId))[0]['id'];
+                        return $postid;
                 } else {
                         die('Incorrect user!');
                 }
@@ -24,7 +36,7 @@ class Post {
                 $posts = "";
                 foreach($dbposts as $p) {
                         if (!DB::query('SELECT post_id FROM post_likes WHERE post_id=:postid AND user_id=:userid', array(':postid'=>$p['id'], ':userid'=>$loggedInUserId))) {
-                                $posts .= htmlspecialchars($p['body'])."
+                                $posts .= "<img src='".$p['postimg']."'>".htmlspecialchars($p['body'])."
                                 <form action='profile.php?username=$username&postid=".$p['id']."' method='post'>
                                         <input type='submit' name='like' value='Like'>
                                         <span>".$p['likes']." likes</span>
@@ -32,7 +44,7 @@ class Post {
                                 <hr /></br />
                                 ";
                         } else {
-                                $posts .= htmlspecialchars($p['body'])."
+                                $posts .= "<img src='".$p['postimg']."'>".htmlspecialchars($p['body'])."
                                 <form action='profile.php?username=$username&postid=".$p['id']."' method='post'>
                                         <input type='submit' name='unlike' value='Unlike'>
                                         <span>".$p['likes']." likes</span>
