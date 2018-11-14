@@ -9,9 +9,9 @@ class Mail {
                 $mail->Host = 'smtp.gmail.com';
                 $mail->Port = '465';
                 $mail->isHTML();
-                $mail->Username = 'socialnetworkmail2@gmail.com';
+                $mail->Username = 'mostafasmily12@gmail.com';
                 $mail->Password = '368276b2fb0439a3';
-                $mail->SetFrom('no-reply@mMostafaAli.org');
+                $mail->SetFrom('no-reply@MostafaAli.org');
                 $mail->Subject = $subject;
                 $mail->Body = $body;
                 $mail->AddAddress($address);
