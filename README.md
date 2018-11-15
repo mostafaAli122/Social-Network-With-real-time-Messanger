@@ -1,0 +1,2 @@
+# Social-Network
+Is Aimed To Creating&amp;Validation Accounts , Logging in&amp;out Users ,Following &amp;Unfollow Users , Verified Accounts , Postiong &amp;liking Posts , Timeline ,Posting&amp; Reading Comments , Upload Profile Image With API Imgur , Mention ,Hashtag , sending&amp;receiving notification,Search Users&amp;posts ,Sending &amp;receiving messages , Sending Mail  ,Designing All Pages &amp; dealing With API to (GET,POST,DELETE) Users Data .
