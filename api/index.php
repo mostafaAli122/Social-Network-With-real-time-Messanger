@@ -5,6 +5,20 @@ $db = new DB("127.0.0.1", "SocialNetwork", "root", "");
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
         if ($_GET['url'] == "auth") {
         } else if ($_GET['url'] == "users") {
+        } else if ($_GET['url'] == "comments" && isset($_GET['postid'])) {
+                $output = "";
+                $comments = $db->query('SELECT comments.comment, users.username FROM comments, users WHERE post_id = :postid AND comments.user_id = users.id', array(':postid'=>$_GET['postid']));
+                $output .= "[";
+                foreach($comments as $comment) {
+                        $output .= "{";
+                        $output .= '"Comment": "'.$comment['comment'].'",';
+                        $output .= '"CommentedBy": "'.$comment['username'].'"';
+                        $output .= "},";
+                        //echo $comment['comment']." ~ ".$comment['username']."<hr />";
+                }
+                $output = substr($output, 0, strlen($output)-1);
+                $output .= "]";
+                echo $output;
         } else if ($_GET['url'] == "posts") {
                 $token = $_COOKIE['SNID'];
                 $userid = $db->query('SELECT user_id FROM login_tokens WHERE token=:token', array(':token'=>sha1($token)))[0]['user_id'];
